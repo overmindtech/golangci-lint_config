@@ -1,0 +1,20 @@
+linters:
+  disable:
+    - bodyclose # we use don't use pure http very often and all API clients already close the body for us
+  presets:
+    - bugs
+
+linters-settings:
+  errcheck:
+    exclude-functions:
+      # these methods are called for their side-effects, like of storing the error in the gin.Context
+      - "(*github.com/gin-gonic/gin.Context).Error"
+      - "(*github.com/gin-gonic/gin.Context).AbortWithError"
+      # this method sanitizes input anyways
+      - "(*github.com/overmindtech/sdp-go.ItemAttributes).Set"
+      # the only template render errors are IO errors writing to the network or
+      # panics.
+      - "(github.com/a-h/templ.Component).Render"
+  gosec:
+    excludes:
+      - G601 # fixed by loopvar in go 1.22; see https://github.com/securego/gosec/issues/1099
