@@ -2,6 +2,8 @@ linters:
   disable:
     - bodyclose # we use don't use pure http very often and all API clients already close the body for us
     - exportloopref # this pattern is fixed in golang 1.22 https://github.com/kyoh86/exportloopref
+  enable:
+    - unused
   presets:
     - bugs
 
