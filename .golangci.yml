@@ -21,3 +21,11 @@ linters-settings:
   gosec:
     excludes:
       - G601 # fixed by loopvar in go 1.22; see https://github.com/securego/gosec/issues/1099
+
+issues:
+  exclude-rules:
+    # gosec has wayyy too many false positives on test code. Most often
+    # complaining about rand usage
+    - path: _test\.go
+      linters:
+        - gosec
